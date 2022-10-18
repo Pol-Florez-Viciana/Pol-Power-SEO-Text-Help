@@ -1,0 +1,340 @@
+﻿<!DOCTYPE html>
+<head>
+<html lang="es_ES" >
+<meta charset="UTF-8" >
+<meta name="author" content="Pol Flórez Viciana" >
+<meta name="owner" content="Pol Flórez Viciana" >
+<meta name="keywords" content="Power, Text" >
+<title>Pol Power SEO Text Help</title>
+<meta name="language" content="es_ES" />
+<meta name="description" content="Herramienta de ayuda para generar Textos SEO optimizados ON-LINE" >
+<meta name="robots" content="index, dofollow" >
+<script src="./JavaScript/Pol-Power-Text.js" ></script>
+<style>
+	body { background-color: rgb(64,64,64); }
+	* { margin: 0px; }
+	#Titulo { color: blue; text-shadow: 0px 0px 10px white; }
+	#Pantalla { width: 90%; min-width: 240px; color: white; background-color: rgba(64,64,64,0.7); }
+	#TextoEntrada { width: 98%; height: 150px; min-width: 220px; min-height: 150px; max-width: 920px; max-height: 150px; color: white; background-color: rgba(64,64,64,0.7);  }
+</style>
+</head>
+<body onload="SetPropiedadesDelTexto()" >
+<center>
+
+	<h1 id="Titulo" >Pol Power SEO Text Help 4.0</h1>
+
+	<section id="Pantalla">
+		<div style="width: 98%; max-width: 920px; text-align: right;">
+			<input onclick="LimpiarTexto()" id="BtnLimpiarTexto" type="button" value="Limpiar Texto" title="Limpiar la Casilla del Texto" />
+		</div>
+		
+		<textarea id="TextoEntrada" onkeyUp="SetPropiedadesDelTexto()" placeholder="Escriba el Texto a Tratar..." ></textarea>
+		
+		<div id="PropiedadColores" style="display: inline-block; background-color: rgba(128,128,0,0.7); border: solid 3px white; width: 98%; max-width: 920px;">
+			<h2 id="PropiedadTexto" style="text-align: center; color: yellow;"></h2>
+			<p id="PropiedadesDelTexto" style="color: white; margin: 5px;" ></p>
+			<p id="SolucionesDelTexto" style="color: white; margin: 5px;" ></p>
+		</div>
+		
+		<div style="display: inline-block; background-color: rgba(0,0,128,0.7); border: solid 3px white; width: 98%; max-width: 920px;">
+			<div style="display: inline-block; ">
+				<h2 style="text-align: center; color: yellow;">Opciones de Transformación del Texto</h2>
+				<input onclick="CambiarALetraCapital()" id="BtnLetraCapital" type="button" value="Texto a Letra Capital" title="Cambiar Todo el Texto a Letras Capitales" style="margin: 10px;" />
+				<input onclick="CambiarMinusculas()" id="BtnMinusculas" type="button" value="Texto a Minusculas" title="Cambiar Todo el Texto a Minusculas" style="margin: 10px;" />
+				<input onclick="CambiarMayusculas()" id="BtnMayusculas" type="button" value="Texto a Mayusculas" title="Cambiar Todo el Texto a Mayusculas" style="margin: 10px;" />
+				<input onclick="ReversodelTexto()" id="BtnReverso" type="button" value="Texto al Revés" title="Texto al Revés" style="margin: 10px;" />
+				<input onclick="EspaciosPorSaltosenTexto()" id="BtnEspaciosPorSaltos" type="button" value="Espacios Por Saltos" title="Cambiar Espacios Por Saltos de Línea" style="margin: 10px;" />
+				<input onclick="SaltosPorEspaciosenTexto()" id="BtnSaltosPorEspacios" type="button" value="Saltos Por Espacios" title="Cambiar Saltos de Línea Por Espacios" style="margin: 10px;" />						
+			</div>
+		</div>
+		
+		<div style="display: inline-block; background-color: rgba(0,0,128,0.7); border: solid 3px white; width: 98%; max-width: 920px;">
+			<div style="display: inline-block; ">
+				<h2 style="text-align: center; color: yellow;">Opciones de Texto Ordenado</h2>
+				<label style="color: yellow;">Separador de Listado</label>
+				<input id="TextoSplit" type="text" value="," maxlength="1"	style="width: 40px; margin: 10px;" />
+				<input onclick="OrdenarTexto()" id="BtnOrdenSplit" type="button" value="Ordenar Texto" title="Ordena el Texto con el Caracter de Separador Indicado" style="margin: 10px;" />
+				<br><br>
+				<input onclick="OrdenarLineas()" id="BtnOrdenLineas" type="button" value="Ordenar Por Lineas" title="Ordenar las Líneas" style="margin: 10px;" />
+			</div>
+		</div>
+		
+		<div style="display: inline-block; background-color: rgba(0,128,0,0.7); border: solid 3px white; width: 98%; max-width: 920px;">
+			<h2 style="text-align: center; color: yellow;">Buscar Palabras en el Texto</h2>
+			<div style="display: inline-block;">
+				<label style="color: yellow;">Coincidencia Original</label>
+				<input id="TextoPalabraOrigen" onchange="ContarPalabraenTexto()" type="text" value="" style="width: 80px; margin: 10px;" />
+				<input onclick="ContarPalabraenTexto()" id="BtnContarPalabra" type="button" value="Buscar la Palabra" title="Buscar una Palabra en el Texto" style="margin: 10px;" />
+			</div>
+			<div style="display: inline-block;">
+				<p id="CuentaPalabrasDelTexto" style="color: white; margin: 5px;" >{Coincidencias:0}</p>
+			</div>
+		</div>
+		
+		<div style="display: inline-block; background-color: rgba(0,128,0,0.7); border: solid 3px white; width: 98%; max-width: 920px;">
+			<h2 style="text-align: center; color: yellow;">Reemplazar Palabras en el Texto</h2>
+			<div style="display: inline-block;">
+				<label style="color: yellow;">Coincidencia Original</label>
+				<input id="TextoOrigen" type="text" value="" style="width: 80px; margin: 10px;" />
+			</div>
+			<div style="display: inline-block;">
+				<label style="color: yellow;">Remplazar Por Esto</label>
+				<input id="TextoFinal" type="text" value="" style="width: 80px; margin: 10px;" /><br>
+			</div>
+			<div style="display: inline-block; ">		
+				<label style="color: yellow;">Pulsar Para Remplazar</label>
+				<input onclick="RemplazarPrimeraPalabra()" id="BtnRemplazarPrimera" type="button" value="Remplazar Primera" title="Remplazar Primera Coincidencia en el Texto" style="margin: 10px;" />
+				<input onclick="RemplazarUltimaPalabra()" id="BtnRemplazarUltima" type="button" value="Remplazar Última" title="Remplazar Última Coincidencia en el Texto" style="margin: 10px;" />
+				<input onclick="RemplazarTodaPalabra()" id="BtnRemplazarTodas" type="button" value="Remplazar Todas" title="Remplazar Toda Coincidencia en el Texto" style="margin: 10px;" /><br>
+			</div>
+		</div>
+		
+		<br><br>
+		
+		<div style="display: inline-block; background-color: rgba(128,0,128,0.7); border: solid 3px white; width: 98%; max-width: 920px;">
+			<div style="display: inline-block; ">
+				<h2 style="text-align: center; color: yellow;">Propiedades de los Textos SEO</h2>
+				<p style="text-align: left; color: white;">
+					Existen indicadores de colores y por nombres, en las propiedades del texto SEO, que definen los tipos de textos 
+					con los que estamos tratando.<br>
+					<br>
+					Existen 4 nombres que se definen por las 6 propiedades del texto que existen y estas son:<br>
+				</p>
+				<ol style="background-color: rgba(0,0,0,0.7); padding: 30px; color: white; text-align: left;">
+					<li><b>Título:</b> <i>Define un título de hasta 60 dígitos que tiene que tener cómo mínimo 5 palabras y máximo de 12 palabras.</i></li> 
+					<li><b>Decripción:</b> <i>Define una decripción de hasta 164 dígitos que tiene que tener cómo mínimo 13 palabras y máximo de 25 palabras.</i></li>
+					<li><b>Post:</b> <i>Define un post de más de 164 dígitos y menos de 280 dígitos, que tiene que tener cómo mínimo 25 palabras y máximo de 40 palabras.</i></li>
+					<li><b>Texto:</b> <i>Define un texto que esta libre de restricciones.</i></li> 	
+				</ol>
+				<br>
+				<p style="text-align: left; color: white;">
+					Los colores definen la díficultad SEO del posicionamiento SEO, mediante las 6 propiedades del texto SEO a tratar.<br>
+				</p>
+				<ol style="background-color: rgba(0,0,0,0.7); padding: 30px; color: white; text-align: left;">
+					<li><b>Verde:</b> <i>Todo Correcto para ese tipo de texto.</i></li> 
+					<li><b>Amarillo:</b> <i>Le falta un poco de algo, o le sobra alguna cosa, aunque puede estar bien así cómo está.</i></li>
+					<li><b>Rojo:</b> <i>Muy díficil de posicionar, por falta de palabras, por superar la cuota de números o tener más de una palabra duplicada.</i></li> 	
+				</ol>
+				<br>
+			</div>
+		</div>	
+	</section>
+
+</center>
+<script type="text/javascript">
+
+function LimpiarTexto(){
+	document.getElementById("TextoEntrada").value = "";
+	SetPropiedadesDelTexto();
+}
+
+function OrdenarLineas(){
+	var TextoEntrada = document.getElementById("TextoEntrada").value;
+	var Resultado = OrdenarLineasTexto(TextoEntrada);
+	document.getElementById("TextoEntrada").value = Resultado;
+	SetPropiedadesDelTexto()
+}
+
+function OrdenarTexto(){
+	var TextoEntrada = document.getElementById("TextoEntrada").value;
+	var TextoCaracter = document.getElementById("TextoSplit").value;
+	var Resultado = OrdenarPalabrasTexto(TextoEntrada,TextoCaracter);
+	document.getElementById("TextoEntrada").value = Resultado;
+	SetPropiedadesDelTexto()
+}
+
+function CambiarALetraCapital(){
+	var TextoEntrada = document.getElementById("TextoEntrada").value;
+	var CambioTextoCapital = TextoLetraCapital(TextoEntrada);
+	document.getElementById("TextoEntrada").value = CambioTextoCapital;
+	SetPropiedadesDelTexto();
+}
+
+function ContarPalabraenTexto(){
+	var TextoEntrada = document.getElementById("TextoEntrada").value;
+	var TextoOrigen = document.getElementById("TextoPalabraOrigen").value;
+	var CuentadePalabras = CuentaLaPalabraTexto(TextoEntrada, TextoOrigen);
+	document.getElementById("CuentaPalabrasDelTexto").innerHTML = "{Coincidencias:" + CuentadePalabras + "}";
+}
+
+function CambiarMinusculas(){
+	var TextoEntrada = document.getElementById("TextoEntrada").value;
+	var TextoFinal = TextoMinuscula(TextoEntrada);
+	document.getElementById("TextoEntrada").value = TextoFinal;
+	SetPropiedadesDelTexto();
+}
+
+function CambiarMayusculas(){
+	var TextoEntrada = document.getElementById("TextoEntrada").value;
+	var TextoFinal = TextoMayuscula(TextoEntrada);
+	document.getElementById("TextoEntrada").value = TextoFinal;
+	SetPropiedadesDelTexto();
+}
+
+function EspaciosPorSaltosenTexto(){
+	var TextoEntrada = document.getElementById("TextoEntrada").value;
+	var TextoFinal = CambiarEspaciosPorSaltosTexto(TextoEntrada);
+	document.getElementById("TextoEntrada").value = TextoFinal;
+	SetPropiedadesDelTexto();
+}
+
+function ReversodelTexto(){
+	var TextoEntrada = document.getElementById("TextoEntrada").value;
+	var TextoFinal = TextoReverso(TextoEntrada);
+	document.getElementById("TextoEntrada").value = TextoFinal;
+	SetPropiedadesDelTexto();
+}
+
+function SaltosPorEspaciosenTexto(){
+	var TextoEntrada = document.getElementById("TextoEntrada").value;
+	var TextoFinal = CambiarSaltosPorEspaciosTexto(TextoEntrada);
+	document.getElementById("TextoEntrada").value = TextoFinal;
+	SetPropiedadesDelTexto();
+}
+
+function RemplazarPrimeraPalabra(){
+	var TextoEntrada = document.getElementById("TextoEntrada").value;
+	var TextoOrigen = document.getElementById("TextoOrigen").value;
+	var TextoFinal = document.getElementById("TextoFinal").value;
+	TextoEntrada = RemplazarPrimerTexto(TextoEntrada, TextoOrigen, TextoFinal);
+	document.getElementById("TextoEntrada").value = TextoEntrada;
+	SetPropiedadesDelTexto();
+}
+
+function RemplazarUltimaPalabra(){
+	var TextoEntrada = document.getElementById("TextoEntrada").value;
+	var TextoOrigen = document.getElementById("TextoOrigen").value;
+	var TextoFinal = document.getElementById("TextoFinal").value;
+	TextoEntrada = RemplazarUltimoTexto(TextoEntrada, TextoOrigen, TextoFinal);
+	document.getElementById("TextoEntrada").value = TextoEntrada;
+	SetPropiedadesDelTexto();
+}
+
+function RemplazarTodaPalabra(){
+	var TextoEntrada = document.getElementById("TextoEntrada").value;
+	var TextoOrigen = document.getElementById("TextoOrigen").value;
+	var TextoFinal = document.getElementById("TextoFinal").value;
+	TextoEntrada = RemplazarTodoTexto(TextoEntrada, TextoOrigen, TextoFinal);
+	document.getElementById("TextoEntrada").value = TextoEntrada;
+	SetPropiedadesDelTexto();
+}
+
+function SetPropiedadesDelTexto(){
+	var TextoEntrada = document.getElementById("TextoEntrada").value + TextoEspacio;
+	var LongitudDelTexto = LongitudTexto(TextoEntrada);
+	var SaltosDeLineasTexto = ContarLineasTexto(TextoEntrada);
+	var EspaciosenTexto = ContarEspaciosTexto(TextoEntrada);
+	
+	if (EspaciosenTexto != NumCero){
+		EspaciosenTexto--;
+	}
+	
+	var ContarPalabrasenTexto = ContarPalabrasTexto(TextoEntrada);
+	var ContarNumerosenTexto = ContarNumerosTexto(TextoEntrada);
+	var ContarRepetidasenTexto = ContarRepeticionesTexto(TextoEntrada);
+	var ContarSimbolosenTexto = ContarSimbolosTexto(TextoEntrada);
+	
+	if (LongitudDelTexto != 1) {
+		if ( LongitudDelTexto <= 60 ) {
+			if (SaltosDeLineasTexto < 2){
+				document.getElementById("PropiedadTexto").innerHTML = "Propiedades del Título";
+			}else{
+				document.getElementById("PropiedadTexto").innerHTML = "Propiedades del Post";
+			}
+		}else{
+			if ( LongitudDelTexto <= 164 ) {
+				if (SaltosDeLineasTexto < 2){
+					document.getElementById("PropiedadTexto").innerHTML = "Propiedades de la Descripción";
+				}else{
+					document.getElementById("PropiedadTexto").innerHTML = "Propiedades del Post";
+				}
+			}else{
+				if ( LongitudDelTexto <= 280 ) {
+					if (SaltosDeLineasTexto < 6){
+						document.getElementById("PropiedadTexto").innerHTML = "Propiedades del Post";
+					}else{
+						document.getElementById("PropiedadTexto").innerHTML = "Propiedades del Texto";
+					}
+				}else{
+					document.getElementById("PropiedadTexto").innerHTML = "Propiedades del Texto";
+				}	
+			}	
+		}
+	}else{
+		document.getElementById("PropiedadTexto").innerHTML = "Propiedades del Texto";
+	}
+	var Soluciones = '<label style="color: yellow;">Soluciones:</label><br>';
+	switch( document.getElementById("PropiedadTexto").innerHTML ) {
+	    case "Propiedades del Título":
+			if (ContarPalabrasenTexto < 5 || ContarRepetidasenTexto > 0 || ContarNumerosenTexto > 4 ) {
+				document.getElementById("PropiedadColores").style = "background-color: rgba(128,0,0,0.7); border: solid 3px white; width: 98%; max-width: 920px; display: inline-block;";
+				if (ContarPalabrasenTexto < 5 ) { Soluciones = Soluciones + "Usa Más Palabras<br>"; }
+				if (ContarRepetidasenTexto > 0 ) { Soluciones =Soluciones + "Usa Palabras Sin Repetir-las<br>"; }
+				if (ContarNumerosenTexto > 4 ) { Soluciones = Soluciones + "Usa Menos Números<br>"; }
+				document.getElementById("SolucionesDelTexto").innerHTML = Soluciones;
+			}else{
+				if (ContarPalabrasenTexto > 12 || ContarRepetidasenTexto > 0 || ContarNumerosenTexto > 4 ) {	
+					document.getElementById("PropiedadColores").style = "background-color: rgba(160,160,0,0.7); border: solid 3px white; width: 98%; max-width: 920px; display: inline-block;";
+					if (ContarPalabrasenTexto > 12 ) { Soluciones = Soluciones + "Usa Menos Palabras<br>"; }
+					if (ContarRepetidasenTexto > 0 ) { Soluciones = Soluciones + "Usa Palabras Sin Repetir-las<br>"; }
+					if (ContarNumerosenTexto > 4 ) { Soluciones = Soluciones + "Usa Menos Números<br>"; }
+					document.getElementById("SolucionesDelTexto").innerHTML = Soluciones;
+				}else{
+					document.getElementById("PropiedadColores").style = "background-color: rgba(0,128,0,0.7); border: solid 3px white; width: 98%; max-width: 920px; display: inline-block;";					
+					document.getElementById("SolucionesDelTexto").innerHTML = Soluciones + "Todo Ok";
+				}
+			}
+			break;
+	    case "Propiedades de la Descripción":
+			if (ContarPalabrasenTexto < 13 || ContarRepetidasenTexto > 2 || ContarNumerosenTexto > 7 ) {
+				document.getElementById("PropiedadColores").style = "background-color: rgba(128,0,0,0.7); border: solid 3px white; width: 98%; max-width: 920px; display: inline-block;";
+				if (ContarPalabrasenTexto < 13 ) { Soluciones = Soluciones + "Usa Más Palabras<br>"; }
+				if (ContarRepetidasenTexto > 2 ) { Soluciones = Soluciones + "Usa Palabras Sin Repetir-las<br>"; }
+				if (ContarNumerosenTexto > 7 ) { Soluciones = Soluciones + "Usa Menos Números<br>"; }
+				document.getElementById("SolucionesDelTexto").innerHTML = Soluciones;
+			}else{
+				if (ContarPalabrasenTexto > 30 || ContarRepetidasenTexto > 2  || ContarNumerosenTexto > 7 ) {	
+					document.getElementById("PropiedadColores").style = "background-color: rgba(160,160,0,0.7); border: solid 3px white; width: 98%; max-width: 920px; display: inline-block;";
+					if (ContarPalabrasenTexto > 30 ) { Soluciones = Soluciones + "Usa Menos Palabras<br>"; }
+					if (ContarRepetidasenTexto > 2 ) { Soluciones = Soluciones + "Usa Palabras Sin Repetir-las<br>"; }
+					if (ContarNumerosenTexto > 7 ) { Soluciones = Soluciones + "Usa Menos Números<br>"; }
+					document.getElementById("SolucionesDelTexto").innerHTML = Soluciones;
+				}else{
+					document.getElementById("PropiedadColores").style = "background-color: rgba(0,128,0,0.7); border: solid 3px white; width: 98%; max-width: 920px; display: inline-block;";
+					document.getElementById("SolucionesDelTexto").innerHTML = Soluciones + "Todo Ok";
+				}
+			}
+			break;
+	    case "Propiedades del Post":
+			if (ContarPalabrasenTexto < 31 || ContarRepetidasenTexto > 4 ) {
+				document.getElementById("PropiedadColores").style = "background-color: rgba(128,0,0,0.7); border: solid 3px white; width: 98%; max-width: 920px; display: inline-block;";
+				if (ContarPalabrasenTexto < 31 ) { Soluciones = Soluciones + "Usa Más Palabras<br>"; }
+				if (ContarRepetidasenTexto > 4 ) { Soluciones = Soluciones + "Usa Palabras Sin Repetir-las<br>"; }
+				document.getElementById("SolucionesDelTexto").innerHTML = Soluciones;
+			}else{
+				if (ContarPalabrasenTexto > 56 || ContarRepetidasenTexto > 4 ) {	
+					document.getElementById("PropiedadColores").style = "background-color: rgba(160,160,0,0.7); border: solid 3px white; width: 98%; max-width: 920px; display: inline-block;";
+					if (ContarPalabrasenTexto > 56 ) { Soluciones = Soluciones + "Usa Menos Palabras<br>"; }
+					if (ContarRepetidasenTexto > 4 ) { Soluciones = Soluciones + "Usa Palabras Sin Repetir-las<br>"; }
+					document.getElementById("SolucionesDelTexto").innerHTML = Soluciones;
+				}else{
+					document.getElementById("PropiedadColores").style = "background-color: rgba(0,128,0,0.7); border: solid 3px white; width: 98%; max-width: 920px; display: inline-block;";
+					document.getElementById("SolucionesDelTexto").innerHTML = Soluciones + "Todo Ok";
+				}
+			}
+			break;
+		case "Propiedades del Texto":
+			document.getElementById("PropiedadColores").style = "background-color: rgba(0,128,0,0.7); border: solid 3px white; width: 98%; max-width: 920px; display: inline-block;";
+			document.getElementById("SolucionesDelTexto").innerHTML = Soluciones + "Todo Ok";
+			break;
+		default:
+		document.getElementById("PropiedadColores").style = "background-color: rgba(0,128,0,0.7); border: solid 3px white; width: 98%; max-width: 920px; display: inline-block;";
+		document.getElementById("SolucionesDelTexto").innerHTML = Soluciones + "Todo Ok";
+	}
+	
+	document.getElementById("PropiedadesDelTexto").innerHTML = "{Dígitos:" + LongitudDelTexto + "} {Líneas:" + SaltosDeLineasTexto + "} {Espacios:" + EspaciosenTexto + "}<br>{Palabras:" + ContarPalabrasenTexto + "} {Números:" + ContarNumerosenTexto + "} {Duplicados:" + ContarRepetidasenTexto + "}<br>{Simbolos:" + ContarSimbolosenTexto + "}";
+}
+
+</script>
+</body>
+</html>
