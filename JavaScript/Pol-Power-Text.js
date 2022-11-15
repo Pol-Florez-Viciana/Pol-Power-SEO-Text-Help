@@ -268,7 +268,7 @@ function TextoEliminaHTML(Texto){
 		var Palabra = TextoNull;
 		Resultado = TextoNull; 
 		for ( i = 1 ; i <= Texto.length; i++ ){
-			CaracterAnterior = Caracter;
+			var CaracterAnterior = Caracter;
 			Caracter = TextoIzquierda(Temporal, NumUno);
 			var SiguienteCaracter = TextoIzquierda(Temporal, NumDos);
 			if (EstaenPausa == false){
@@ -332,9 +332,11 @@ function TextoLetraCapital(Texto){
 		var Palabra = TextoNull;
 		Resultado = TextoNull; 
 		for ( i = 1 ; i <= Texto.length; i++ ){
+			var CaracterAnterior = Caracter;
 			Caracter = TextoIzquierda(Temporal, NumUno);
+			var SiguienteCaracter = TextoIzquierda(Temporal, NumDos);
 			if (EstaenPausa == false){
-				if ( Caracter.charCodeAt() == 60 ){
+				if ( Caracter.charCodeAt() == 60 && TextoEspacio + SiguienteCaracter != TextoEspacio + "<" + TextoEspacio ){
 					EstaenPausa = true;
 				}else{ 
 					if ( Caracter.charCodeAt() == 62 ){
@@ -358,7 +360,7 @@ function TextoLetraCapital(Texto){
 				}
 				
 			}else{
-				if ( Caracter.charCodeAt() == 60 ){
+				if ( Caracter.charCodeAt() == 60 && TextoEspacio + SiguienteCaracter != TextoEspacio + "<" + TextoEspacio ){
 					EstaenPausa = true;
 				}else{ 
 					if ( Caracter.charCodeAt() == 62 ){
