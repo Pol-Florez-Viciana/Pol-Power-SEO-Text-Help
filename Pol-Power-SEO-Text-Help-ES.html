@@ -21,7 +21,7 @@
 <body onload="SetPropiedadesDelTexto()" >
 <center>
 
-	<h1 id="Titulo" >Pol Power SEO Text Help 4.0</h1>
+	<h1 id="Titulo" >Pol Power SEO Text Help 7.1</h1>
 
 	<section id="Pantalla">
 		<div style="width: 98%; max-width: 920px; text-align: right;">
@@ -39,12 +39,18 @@
 		<div style="display: inline-block; background-color: rgba(0,0,128,0.7); border: solid 3px white; width: 98%; max-width: 920px;">
 			<div style="display: inline-block; ">
 				<h2 style="text-align: center; color: yellow;">Opciones de Transformación del Texto</h2>
+				<input onclick="PonerFecha()" id="BtnFechaHoy" type="button" value="Titular con Fecha" title="Titular con Fecha de Ahora Sin Label" style="margin: 10px;" />
+				<input onclick="PonerLabelFecha()" id="BtnLabelFechaHoy" type="button" value="Titular Label con Fecha" title="Titular con Fecha de Ahora Con Label" style="margin: 10px;" />
+				<input onclick="ListarLineas()" id="BtnListarLineas" type="button" value="Crear Listado con Líneas" title="Crear Listado con Todas las Lineas Sin Numeración" style="margin: 10px;" />
+				<input onclick="ListarLineasEnumeradas()" id="BtnListarLineasEnumeradas" type="button" value="Crear Listado con Líneas Enumeradas" title="Crear Listado con Todas las Lineas Con Numeración" style="margin: 10px;" />
 				<input onclick="CambiarALetraCapital()" id="BtnLetraCapital" type="button" value="Texto a Letra Capital" title="Cambiar Todo el Texto a Letras Capitales" style="margin: 10px;" />
 				<input onclick="CambiarMinusculas()" id="BtnMinusculas" type="button" value="Texto a Minusculas" title="Cambiar Todo el Texto a Minusculas" style="margin: 10px;" />
 				<input onclick="CambiarMayusculas()" id="BtnMayusculas" type="button" value="Texto a Mayusculas" title="Cambiar Todo el Texto a Mayusculas" style="margin: 10px;" />
 				<input onclick="ReversodelTexto()" id="BtnReverso" type="button" value="Texto al Revés" title="Texto al Revés" style="margin: 10px;" />
 				<input onclick="EspaciosPorSaltosenTexto()" id="BtnEspaciosPorSaltos" type="button" value="Espacios Por Saltos" title="Cambiar Espacios Por Saltos de Línea" style="margin: 10px;" />
-				<input onclick="SaltosPorEspaciosenTexto()" id="BtnSaltosPorEspacios" type="button" value="Saltos Por Espacios" title="Cambiar Saltos de Línea Por Espacios" style="margin: 10px;" />						
+				<input onclick="SaltosPorEspaciosenTexto()" id="BtnSaltosPorEspacios" type="button" value="Saltos Por Espacios" title="Cambiar Saltos de Línea Por Espacios" style="margin: 10px;" />
+				<input onclick="CambiaBRenTexto()" id="BtnAgregarBR" type="button" value="Agregar <br> a Líneas" title="Agregar <br> a Saltos de Línea" style="margin: 10px;" />
+				<input onclick="EliminarEtiquetasHTMLenTexto()" id="BtnEliminarHTML" type="button" value="Eliminar HTML" title="Eliminar Etiquetas HTML" style="margin: 10px;" />							
 			</div>
 		</div>
 		
@@ -128,6 +134,34 @@ function LimpiarTexto(){
 	SetPropiedadesDelTexto();
 }
 
+function PonerFecha(){
+	var TextoEntrada = document.getElementById("TextoEntrada").value;
+	var TextoFinal = AgregarFecha(TextoEntrada);
+	document.getElementById("TextoEntrada").value = TextoFinal;
+	SetPropiedadesDelTexto();
+}
+
+function PonerLabelFecha(){
+	var TextoEntrada = document.getElementById("TextoEntrada").value;
+	var TextoFinal = AgregarFechaConLabel(TextoEntrada);
+	document.getElementById("TextoEntrada").value = TextoFinal;
+	SetPropiedadesDelTexto();
+}
+
+function ListarLineas(){
+	var TextoEntrada = document.getElementById("TextoEntrada").value;
+	var TextoFinal = CrearListadoEtiquetado(TextoEntrada);
+	document.getElementById("TextoEntrada").value = TextoFinal;
+	SetPropiedadesDelTexto();
+}
+
+function ListarLineasEnumeradas(){
+	var TextoEntrada = document.getElementById("TextoEntrada").value;
+	var TextoFinal = CrearListadoEtiquetadoEnumerados(TextoEntrada);
+	document.getElementById("TextoEntrada").value = TextoFinal;
+	SetPropiedadesDelTexto();
+}
+
 function OrdenarLineas(){
 	var TextoEntrada = document.getElementById("TextoEntrada").value;
 	var Resultado = OrdenarLineasTexto(TextoEntrada);
@@ -188,6 +222,20 @@ function ReversodelTexto(){
 function SaltosPorEspaciosenTexto(){
 	var TextoEntrada = document.getElementById("TextoEntrada").value;
 	var TextoFinal = CambiarSaltosPorEspaciosTexto(TextoEntrada);
+	document.getElementById("TextoEntrada").value = TextoFinal;
+	SetPropiedadesDelTexto();
+}
+
+function CambiaBRenTexto(){
+	var TextoEntrada = document.getElementById("TextoEntrada").value;
+	var TextoFinal = RemplazarSaltosPorBR(TextoEntrada);
+	document.getElementById("TextoEntrada").value = TextoFinal;
+	SetPropiedadesDelTexto();
+}
+
+function EliminarEtiquetasHTMLenTexto(){
+	var TextoEntrada = document.getElementById("TextoEntrada").value;
+	var TextoFinal = TextoEliminaHTML(TextoEntrada);
 	document.getElementById("TextoEntrada").value = TextoFinal;
 	SetPropiedadesDelTexto();
 }

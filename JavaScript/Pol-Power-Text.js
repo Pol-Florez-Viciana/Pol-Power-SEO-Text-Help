@@ -2,7 +2,7 @@
 // ***********************************************************************************************************
 // Autor: Pol Flórez Viciana
 // Fecha Inicial: 17/09/2022 
-// Fecha Final:   11/10/2022
+// Fecha Final:   15/11/2022
 // ***********************************************************************************************************
 // ***********************************************************************************************************
 
@@ -68,6 +68,135 @@ const TextoGuion = "-";
 const TextoBarra = "/";
 const TextoContraBarra = "\\";
 
+// Funciones de Fecha
+
+function AgregarFecha(Texto){
+	var Fecha = new Date();
+	var Resultado = Dia(Fecha) + TextoBarra + Mes(Fecha) + TextoBarra + Ano(Fecha) + TextoEspacio + Hora(Fecha) + ":" + Minuto(Fecha);
+	return Resultado + "\n\n" + Texto;
+}
+
+function AgregarFechaConLabel(Texto){
+	var Fecha = new Date();
+	var Resultado = Dia(Fecha) + TextoBarra + Mes(Fecha) + TextoBarra + Ano(Fecha) + TextoEspacio + Hora(Fecha) + ":" + Minuto(Fecha);
+	return '<label style="color: red;">' + Resultado + "</label>\n\n" + Texto;
+}
+
+function TraerFechaAhora(){
+    var Traer = new Date();
+    return Traer;
+}
+function DiaSemana( FechaTempo ) {
+    var TemporalDate = FechaTempo.getDay();
+    return TemporalDate;
+}
+function Dia( FechaTempo ) {
+    var TemporalDate = TextoNull + FechaTempo.getDate();    
+	if (TemporalDate.length == 1){ 
+		TemporalDate = "0" + TemporalDate; 
+	}	
+    return TemporalDate;		
+}
+function Mes( FechaTempo ) {
+    var Retorno = FechaTempo.getMonth();
+    Retorno++;
+	var TemporalDate = TextoNull + Retorno;
+	if (TemporalDate.length == 1){ 
+		TemporalDate = "0" + TemporalDate; 
+	}	
+    return Retorno;
+}
+function Ano( FechaTempo ) {
+    var TemporalDate = TextoNull + FechaTempo.getFullYear();
+	if (TemporalDate.length == 1){ 
+		TemporalDate = "0" + TemporalDate; 
+	}
+    return TemporalDate;
+}
+function Hora( FechaTempo ){
+    var TemporalDate = TextoNull + FechaTempo.getHours();    
+	if (TemporalDate.length == 1){ 
+		TemporalDate = "0" + TemporalDate; 
+	}
+    return TemporalDate;		
+}
+function Minuto( FechaTempo ){
+    var TemporalDate = TextoNull + FechaTempo.getMinutes();  
+	if (TemporalDate.length == 1){ 
+		TemporalDate = "0" + TemporalDate; 
+	}
+    return TemporalDate;		
+}
+function Segundo( FechaTempo ){
+    var TemporalDate = TextoNull + FechaTempo.getSeconds(); 
+	if (TemporalDate.length == 1){ 
+		TemporalDate = "0" + TemporalDate; 
+	}
+    return TemporalDate;		
+}
+
+// Funciones de Herramienta
+
+function CrearListadoEtiquetado(Texto){
+	var ResultadoFinal = Texto;
+	if (Texto != TextoNull ){
+		ResultadoFinal = TextoNull;
+		var Temporal = Texto;
+		var i = NumCero;
+		var Caracter = TextoNull;
+		var Linea = TextoNull;
+		ResultadoFinal = '<ul style="color: white; background-color: rgba(0,0,0,0.7); padding: 30px;">\n'; 
+		for ( i = 1 ; i <= Texto.length; i++ ){
+			Caracter = TextoIzquierda(Temporal, NumUno);
+			if (Caracter.charCodeAt() == SaltodeLinea.charCodeAt()){
+				if (Linea != TextoNull){
+					ResultadoFinal = ResultadoFinal + "<li>" + Linea + "</li>" + Caracter;	
+				}
+				Linea = TextoNull;
+			}else{
+				Linea = Linea + Caracter;
+			}
+			Temporal = TextoDerecha(Texto, Texto.length - i);
+		}
+		if (Linea != TextoNull){
+			ResultadoFinal = ResultadoFinal + "<li>" + Linea + "</li>\n</ul>";	
+		}else{
+			ResultadoFinal = ResultadoFinal + "\n</ul>";	
+		}
+	}
+	return ResultadoFinal;
+}
+
+function CrearListadoEtiquetadoEnumerados(Texto){
+	var ResultadoFinal = Texto;
+	if (Texto != TextoNull ){
+		ResultadoFinal = TextoNull;
+		var Temporal = Texto;
+		var i = NumCero;
+		var Caracter = TextoNull;
+		var Linea = TextoNull;
+		ResultadoFinal = '<ol style="color: white; background-color: rgba(0,0,0,0.7); padding: 30px;">\n'; 
+		for ( i = 1 ; i <= Texto.length; i++ ){
+			Caracter = TextoIzquierda(Temporal, NumUno);
+			if (Caracter.charCodeAt() == SaltodeLinea.charCodeAt()){
+				if (Linea != TextoNull){
+					ResultadoFinal = ResultadoFinal + "<li>" + Linea + "</li>" + Caracter;	
+				}
+				Linea = TextoNull;
+			}else{
+				Linea = Linea + Caracter;
+			}
+			Temporal = TextoDerecha(Texto, Texto.length - i);
+		}
+		if (Linea != TextoNull){
+			ResultadoFinal = ResultadoFinal + "<li>" + Linea + "</li>\n</ol>";	
+		}else{
+			ResultadoFinal = ResultadoFinal + "\n</ol>";	
+		}
+	}
+	return ResultadoFinal;
+}
+
 function OrdenarLineasTexto(Texto){
 	return OrdenarPalabrasTexto(Texto, "\n");
 }
@@ -102,6 +231,92 @@ function ContarSimbolosTexto(Texto){
 			
 			Temporal = TextoDerecha(Texto, Texto.length - i);	
 		}	
+	}
+	return Resultado;
+}
+
+function RemplazarSaltosPorBR(Texto){
+	var ResultadoFinal = Texto;
+	if (Texto != TextoNull ){
+		ResultadoFinal = TextoNull;
+		var Temporal = Texto;
+		var i = NumCero;
+		var Caracter = TextoNull;
+		ResultadoFinal = TextoNull; 
+		for ( i = 1 ; i <= Texto.length; i++ ){
+			Caracter = TextoIzquierda(Temporal, NumUno);
+			if (Caracter.charCodeAt() == SaltodeLinea.charCodeAt()){
+				ResultadoFinal = ResultadoFinal + "<br>" + Caracter;
+			}else{
+				ResultadoFinal = ResultadoFinal + Caracter;
+			}
+			Temporal = TextoDerecha(Texto, Texto.length - i);
+		}
+		ResultadoFinal = ResultadoFinal + "<br>" + SaltodeLinea;
+	}
+	return ResultadoFinal;
+}
+
+function TextoEliminaHTML(Texto){
+	var Resultado = Texto;
+	if (Texto != TextoNull ){
+		var Temporal = Texto;
+		var i = NumCero;
+		var EstaenMayus = true;
+		var EstaenPausa = false;
+		var Caracter = TextoNull;
+		var Palabra = TextoNull;
+		Resultado = TextoNull; 
+		for ( i = 1 ; i <= Texto.length; i++ ){
+			CaracterAnterior = Caracter;
+			Caracter = TextoIzquierda(Temporal, NumUno);
+			var SiguienteCaracter = TextoIzquierda(Temporal, NumDos);
+			if (EstaenPausa == false){
+				if ( Caracter.charCodeAt() == 60 && TextoEspacio + SiguienteCaracter != TextoEspacio + "<" + TextoEspacio ){
+					EstaenPausa = true;
+				}else{ 
+					if ( Caracter.charCodeAt() == 62 ){
+						EstaenPausa = false;
+					}		
+				}
+				if ( Caracter.charCodeAt() == 46 || Caracter.charCodeAt() == 58){
+					EstaenMayus = true;
+					if (EstaenPausa == false ){ 
+						Resultado = Resultado + Caracter; 
+					}
+				}else{
+					if ( Caracter.charCodeAt() >=  65 && Caracter.charCodeAt() <=  90 || Caracter.charCodeAt() >=  97 && Caracter.charCodeAt() <=  122 || Caracter.charCodeAt() >=  192 && Caracter.charCodeAt() <=  255 ){
+						if (EstaenMayus == true ){
+							if (EstaenPausa == false ){ 
+								Resultado = Resultado + Caracter; 
+							}
+							EstaenMayus = false;
+						}else{
+							if (EstaenPausa == false ){ 
+								Resultado = Resultado + Caracter; 
+							}
+						}
+					}else{
+						if (EstaenPausa == false ){ 
+							Resultado = Resultado + Caracter; 
+						}
+					}
+				}
+				
+			}else{
+				if ( Caracter.charCodeAt() == 60 && TextoEspacio + SiguienteCaracter != TextoEspacio + "<" + TextoEspacio ){
+					EstaenPausa = true;
+				}else{ 
+					if ( Caracter.charCodeAt() == 62 ){
+						EstaenPausa = false;
+					}		
+				}
+				if (EstaenPausa == false && Caracter.charCodeAt() != 62 ){ 
+					Resultado = Resultado + Caracter; 
+				}	
+			}	
+			Temporal = TextoDerecha(Texto, Texto.length - i);	
+		}
 	}
 	return Resultado;
 }
@@ -381,7 +596,7 @@ function RemplazarTodoTexto(TextoOriginal, OrigenTexto, TextoFinal){
 	var Texto = TextoOriginal;
 	if (TextoOriginal != TextoNull && OrigenTexto != TextoNull){
 		var i;
-		var Resultado = TextoNull;
+		Resultado = TextoNull;
 		for (i=0; i < TextoOriginal.length; i++){
 			Resultado = Texto.replace(OrigenTexto,TextoFinal);
 			Texto = Resultado;
