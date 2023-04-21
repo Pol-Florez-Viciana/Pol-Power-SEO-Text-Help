@@ -42,12 +42,25 @@ const NumSeis = 6;
 const NumSiete = 7;
 const NumOcho = 8;
 const NumNueve = 9;
+
+const CeroString = "0";
+const UnoString = "1";
+const DosString = "2";
+const TresString = "3";
+const CuatroString = "4";
+const CincoString = "5";
+const SeisString = "6";
+const SieteString = "7";
+const OchoString = "8";
+const NueveString = "9";
+
 const TextoNull = "";
 const NumNumero = "number";
 const SaltodeLinea = "\n"; 
 const TextoEspacio = " ";
 const TextoComa = ",";
 const TextoPunto = ".";
+const TextoDosPuntos = ":";
 const TextoIgual = "=";
 const TextoComillasDobles = '"';
 const TextoComillas = "'";
@@ -72,14 +85,24 @@ const TextoContraBarra = "\\";
 
 function AgregarFecha(Texto){
 	var Fecha = new Date();
-	var Resultado = Dia(Fecha) + TextoBarra + Mes(Fecha) + TextoBarra + Ano(Fecha) + TextoEspacio + Hora(Fecha) + ":" + Minuto(Fecha);
-	return Resultado + "\n\n" + Texto;
+	var TDia = TextoNull + Dia(Fecha);
+	var TMes = TextoNull + Mes(Fecha);
+	var TAno = TextoNull + Ano(Fecha);
+	var THora = TextoNull + Hora(Fecha);
+	var TMinuto = TextoNull + Minuto(Fecha);
+	var Resultado = TDia + TextoBarra + TMes + TextoBarra + TAno + TextoEspacio + THora + TextoDosPuntos + TMinuto + TextoDosPuntos + CeroString + CeroString;
+	return Resultado + "\n" + Texto;
 }
 
 function AgregarFechaConLabel(Texto){
 	var Fecha = new Date();
-	var Resultado = Dia(Fecha) + TextoBarra + Mes(Fecha) + TextoBarra + Ano(Fecha) + TextoEspacio + Hora(Fecha) + ":" + Minuto(Fecha);
-	return '<label style="color: red;">' + Resultado + "</label>\n\n" + Texto;
+	var TDia = TextoNull + Dia(Fecha);
+	var TMes = TextoNull + Mes(Fecha);
+	var TAno = TextoNull + Ano(Fecha);
+	var THora = TextoNull + Hora(Fecha);
+	var TMinuto = TextoNull + Minuto(Fecha);
+	var Resultado = TDia + TextoBarra + TMes + TextoBarra + TAno + TextoEspacio + THora + TextoDosPuntos + TMinuto + TextoDosPuntos + CeroString + CeroString;
+	return '<label style="color: red;">' + Resultado + "</label>\n" + Texto;
 }
 
 function TraerFechaAhora(){
@@ -93,7 +116,7 @@ function DiaSemana( FechaTempo ) {
 function Dia( FechaTempo ) {
     var TemporalDate = TextoNull + FechaTempo.getDate();    
 	if (TemporalDate.length == 1){ 
-		TemporalDate = "0" + TemporalDate; 
+		TemporalDate = CeroString + TemporalDate; 
 	}	
     return TemporalDate;		
 }
@@ -102,35 +125,35 @@ function Mes( FechaTempo ) {
     Retorno++;
 	var TemporalDate = TextoNull + Retorno;
 	if (TemporalDate.length == 1){ 
-		TemporalDate = "0" + TemporalDate; 
+		TemporalDate = CeroString + TemporalDate; 
 	}	
-    return Retorno;
+    return TemporalDate;
 }
 function Ano( FechaTempo ) {
     var TemporalDate = TextoNull + FechaTempo.getFullYear();
-	if (TemporalDate.length == 1){ 
-		TemporalDate = "0" + TemporalDate; 
+	if (TemporalDate.length == 2){ 
+		TemporalDate = CeroString + TemporalDate; 
 	}
     return TemporalDate;
 }
 function Hora( FechaTempo ){
     var TemporalDate = TextoNull + FechaTempo.getHours();    
 	if (TemporalDate.length == 1){ 
-		TemporalDate = "0" + TemporalDate; 
+		TemporalDate = CeroString + TemporalDate; 
 	}
     return TemporalDate;		
 }
 function Minuto( FechaTempo ){
     var TemporalDate = TextoNull + FechaTempo.getMinutes();  
 	if (TemporalDate.length == 1){ 
-		TemporalDate = "0" + TemporalDate; 
+		TemporalDate = CeroString + TemporalDate; 
 	}
     return TemporalDate;		
 }
 function Segundo( FechaTempo ){
     var TemporalDate = TextoNull + FechaTempo.getSeconds(); 
 	if (TemporalDate.length == 1){ 
-		TemporalDate = "0" + TemporalDate; 
+		TemporalDate = CeroString + TemporalDate; 
 	}
     return TemporalDate;		
 }

@@ -21,7 +21,7 @@
 <body onload="SetPropiedadesDelTexto()" >
 <center>
 
-	<h1 id="Titulo" >Pol Power SEO Text Help 7.2</h1>
+	<h1 id="Titulo" >Pol Power SEO Text Help 8.0</h1>
 
 	<section id="Pantalla">
 		<div style="width: 98%; max-width: 920px; text-align: right;">
@@ -39,8 +39,16 @@
 		<div style="display: inline-block; background-color: rgba(0,0,128,0.7); border: solid 3px white; width: 98%; max-width: 920px;">
 			<div style="display: inline-block; ">
 				<h2 style="text-align: center; color: yellow;">Opciones de Transformación del Texto</h2>
+				<input onclick="POSTCompleto()" id="BtnStartPOST" type="button" value="POST Completo" title="Generar POST Completo Predeterminado" style="margin: 10px;" />
 				<input onclick="PonerFecha()" id="BtnFechaHoy" type="button" value="Titular con Fecha" title="Titular con Fecha de Ahora Sin Label" style="margin: 10px;" />
 				<input onclick="PonerLabelFecha()" id="BtnLabelFechaHoy" type="button" value="Titular Label con Fecha" title="Titular con Fecha de Ahora Con Label" style="margin: 10px;" />
+				<input onclick="PonerNegrita()" id="BtnNegrita" type="button" value="Objeto Negrita" title="Agregar Etiquetas Negrita" style="margin: 10px;" />
+				<input onclick="PonerCursiva()" id="BtnCursiva" type="button" value="Objeto Cursiva" title="Agregar Etiquetas Cursiva" style="margin: 10px;" />
+				<input onclick="PonerEnlace()" id="BtnEnlace" type="button" value="Objeto Enlace" title="Agregar Etiqueta Enlace" style="margin: 10px;" />
+				<input onclick="PonerCenter()" id="BtnCenter" type="button" value="Objeto Center" title="Agregar Etiquetas Center" style="margin: 10px;" />
+				<input onclick="PonerCenterDIV1()" id="BtnDIV1" type="button" value="Objeto DIV 1" title="Agregar 1 DIV" style="margin: 10px;" />
+				<input onclick="PonerCenterDIV2()" id="BtnDIV2" type="button" value="Objeto DIV 2" title="Agregar 2 DIV" style="margin: 10px;" />
+				<input onclick="PonerCenterDIV3()" id="BtnDIV3" type="button" value="Objeto DIV 3" title="Agregar 3 DIV" style="margin: 10px;" />
 				<input onclick="ListarLineas()" id="BtnListarLineas" type="button" value="Crear Listado con Líneas" title="Crear Listado con Todas las Lineas Sin Numeración" style="margin: 10px;" />
 				<input onclick="ListarLineasEnumeradas()" id="BtnListarLineasEnumeradas" type="button" value="Crear Listado con Líneas Enumeradas" title="Crear Listado con Todas las Lineas Con Numeración" style="margin: 10px;" />
 				<input onclick="CambiarALetraCapital()" id="BtnLetraCapital" type="button" value="Texto a Letra Capital" title="Cambiar Todo el Texto a Letras Capitales" style="margin: 10px;" />
@@ -131,6 +139,71 @@
 
 function LimpiarTexto(){
 	document.getElementById("TextoEntrada").value = "";
+	SetPropiedadesDelTexto();
+}
+
+function POSTCompleto(){
+	var TextoEntrada = document.getElementById("TextoEntrada").value;
+	var TFecha = AgregarFechaConLabel(TextoEntrada);
+	var TextoFechaFinal = TextoIzquierda(TFecha,TFecha.length - 1);
+	var TextoFinal = TextoFechaFinal + "<br>\n<br>\n<b>\n\n</b>\n<br>\n<i>\n\n</i>\n<br>";
+	document.getElementById("TextoEntrada").value = TextoFinal;
+	SetPropiedadesDelTexto();
+}
+
+function PonerNegrita(){
+	var TextoEntrada = document.getElementById("TextoEntrada").value;
+	var TextoFinal = "<b>\n\n</b>\n<br>\n";
+	var Texto = document.getElementById("TextoEntrada").value;
+	document.getElementById("TextoEntrada").value = Texto + TextoFinal;
+	SetPropiedadesDelTexto();
+}
+
+function PonerCursiva(){
+	var TextoEntrada = document.getElementById("TextoEntrada").value;
+	var TextoFinal = "<i>\n\n</i>\n<br>\n";
+	var Texto = document.getElementById("TextoEntrada").value;
+	document.getElementById("TextoEntrada").value = Texto + TextoFinal;
+	SetPropiedadesDelTexto();
+}
+
+function PonerEnlace(){
+	var TextoEntrada = document.getElementById("TextoEntrada").value;
+	var TextoFinal = '<a href="" target="_BLANK" style="color: limegreen;" >Texto</a><br>\n<br>\n';
+	var Texto = document.getElementById("TextoEntrada").value;
+	document.getElementById("TextoEntrada").value = Texto + TextoFinal;
+	SetPropiedadesDelTexto();
+}
+
+function PonerCenter(){
+	var TextoEntrada = document.getElementById("TextoEntrada").value;
+	var TextoFinal = "<center>\n\n</center>\n";
+	var Texto = document.getElementById("TextoEntrada").value;
+	document.getElementById("TextoEntrada").value = Texto + TextoFinal;
+	SetPropiedadesDelTexto();
+}
+
+function PonerCenterDIV1(){
+	var TextoEntrada = document.getElementById("TextoEntrada").value;
+	var TextoFinal = "<center>\n" + '<div style="text-align: center; min-width: 220px; width=95%: background-color: rgba(0,0,0,0.8); border: solid 1px white;">' + "\n\n" + '</div>' + "\n" + "</center>";
+	var Texto = document.getElementById("TextoEntrada").value;
+	document.getElementById("TextoEntrada").value = Texto + TextoFinal;
+	SetPropiedadesDelTexto();
+}
+
+function PonerCenterDIV2(){
+	var TextoEntrada = document.getElementById("TextoEntrada").value;
+	var TextoFinal = "<center>\n" + '<div style="text-align: center; min-width: 220px; width=45%: background-color: rgba(0,0,0,0.8); border: solid 1px white; display: inline-block; vertical-align: top;">' + "\n\n" + '</div>' + "\n" + '<div style="text-align: center; min-width: 220px; width=45%: background-color: rgba(0,0,0,0.8); border: solid 1px white; display: inline-block; vertical-align: top;">' + "\n\n" + '</div>' + "\n" + "</center>";
+	var Texto = document.getElementById("TextoEntrada").value;
+	document.getElementById("TextoEntrada").value = Texto + TextoFinal;
+	SetPropiedadesDelTexto();
+}
+
+function PonerCenterDIV3(){
+	var TextoEntrada = document.getElementById("TextoEntrada").value;
+	var TextoFinal = "<center>\n" + '<div style="text-align: center; min-width: 220px; width=30%: background-color: rgba(0,0,0,0.8); border: solid 1px white; display: inline-block; vertical-align: top;">' + "\n\n" + '</div>' + "\n" + '<div style="text-align: center; min-width: 220px; width=30%: background-color: rgba(0,0,0,0.8); border: solid 1px white; display: inline-block; vertical-align: top;">' + "\n\n" + '</div>' + "\n" + '<div style="text-align: center; min-width: 220px; width=30%: background-color: rgba(0,0,0,0.8); border: solid 1px white; display: inline-block; vertical-align: top;">' + "\n\n" + '</div>' + "\n" + "</center>";
+	var Texto = document.getElementById("TextoEntrada").value;
+	document.getElementById("TextoEntrada").value = Texto + TextoFinal;
 	SetPropiedadesDelTexto();
 }
 
